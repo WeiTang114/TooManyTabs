@@ -1,0 +1,23 @@
+.list-group-item {
+  position: relative;
+  display: block;
+  padding: 5px 10px;
+  margin-bottom: -1px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  font-size: 8px;
+}
+
+.text {
+   overflow: hidden;
+   text-overflow: ellipsis;
+   display: -webkit-box;
+   line-height: 16px;     /* fallback */
+   max-height: 32px;      /* fallback */
+   -webkit-line-clamp: 2; /* number of lines to show */
+   -webkit-box-orient: vertical;
+}
+
+.bootstrap-select .btn:focus {
+    outline: none !important;
+}
