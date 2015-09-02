@@ -1,12 +1,12 @@
 {
-  "name": "Too Many Tabs",
-  "version": "0.8",
+  "name": "Find My Tab",
+  "version": "0.9",
   "description": "Jump to the right tab immediately by clicking the title in the popup, even if you have 100 tabs.",
   "permissions": [
     "tabs"
   ],
   "browser_action": {
-      "default_title": "Too Many Tabs",
+      "default_title": "Find My Tab",
       "default_icon": "icon.png",
       "default_popup": "popup.html"
   },
