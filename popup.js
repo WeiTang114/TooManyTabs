@@ -35,10 +35,9 @@ function showTabs(tabs) {
   }
 
   $('html').height(list.height());
-  if (list.height() > 600) {
-    list.height(600);
-    list.css('overflowY', 'auto');
-  }
+  list.css('overflowY', 'auto');
+  list.height(Math.min(list.height(), 600));
+
 
   highlightActiveTab();
 
@@ -51,12 +50,10 @@ function showTabs(tabs) {
 }
 
 function highlightActiveTab() {
-
   chrome.tabs.query({currentWindow:true, active: true}, function(tabs) {
-    var tab = tabs[0];
-    console.log('gggg' + tab.index);
-
-    $($('#tabs').find('.item').get(tab.index)).addClass('active');
+    var idx = tabs[0].index;
+    $($('#tabs').find('.item').get(idx))
+        .addClass('active');
   });
 }
 
