@@ -25,3 +25,26 @@
 .close-btn:hover {
   color: #d9534f;
 }
+
+#searchinput {
+  /*width: 200px;*/
+  max-width: 600px;
+}
+
+#searchclear {
+  position: absolute;
+  right: 5px;
+  top: 0;
+  bottom: 0;
+  height: 14px;
+  margin: auto;
+  font-size: 14px;
+  cursor: pointer;
+  color: #ccc;
+  display: none;
+}
+
+#searchdiv {
+  margin-top: 5px;
+  margin-bottom: 10px;
+}

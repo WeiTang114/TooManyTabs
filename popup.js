@@ -1,3 +1,5 @@
+var _list;
+
 function queryTabs() {
   chrome.tabs.query({currentWindow: true}, showTabs);
 }
@@ -5,8 +7,7 @@ function queryTabs() {
 var _tabs;
 function showTabs(tabs) {
   _tabs = tabs;
-  var list = $('#tabs');
-  list.empty();
+  _list.empty();
   for (var i = 0; i < tabs.length; i++) {
     var t = tabs[i];
     console.log(t.title);
@@ -39,7 +40,7 @@ function showTabs(tabs) {
     href.append(icon);
     href.append(badge);
     href.append(div);
-    list.append(href);
+    _list.append(href);
   }
 
   updateLayout();
@@ -69,13 +70,14 @@ function showTabs(tabs) {
 }
 
 function updateLayout() {
-  var list = $('#tabs');
 
-  $('html').height(list.height());
-  console.log('new height:' + list.height());
-  list.css('overflowY', 'auto');
-  list.css('max-height', Math.min(list.height(), 600));
+  console.log('new height:' + _list.height());
+  _list.css('overflowY', 'auto');
+  _list.css('max-height', Math.min(_list.height(), 550));
+  _list.css('margin-bottom', '0px');
+  $('html').height(_list.height() + 45);
 }
+
 
 function highlightActiveTab() {
   chrome.tabs.query({currentWindow:true, active: true}, function(tabs) {
@@ -85,6 +87,37 @@ function highlightActiveTab() {
   });
 }
 
+// This is from Kilian:
+//     http://kilianvalkhof.com/2010/javascript/how-to-build-a-fast-simple-list-filter-with-jquery/
+function initFilter() {
+  jQuery.expr[':'].Contains = function(a,i,m){
+    return (a.textContent || a.innerText || "").toUpperCase().indexOf(m[3].toUpperCase())>=0;
+  };
+
+  $('#searchinput').change(function() {
+    var filter = $(this).val();
+    console.log(filter);
+    if (filter) {
+      $('#searchclear').show();
+      _list.find("div:not(:Contains(" + filter + "))").parent().slideUp();
+      _list.find("div:Contains(" + filter + ")").parent().slideDown();
+    } else {
+      $('#searchclear').hide();
+      _list.find(".item").slideDown();
+    }
+  }).keyup(function() {
+    $(this).change();
+  });
+
+  $('#searchclear').click(function() {
+    $('#searchinput').val('').focus().change();
+    $(this).hide();
+  });
+}
+
+
 document.addEventListener('DOMContentLoaded', function () {
+  _list = $('#tabs');
   queryTabs();
+  initFilter();
 });
