@@ -21,3 +21,7 @@
 .bootstrap-select .btn:focus {
     outline: none !important;
 }
+
+.close-btn:hover {
+  color: #d9534f;
+}
