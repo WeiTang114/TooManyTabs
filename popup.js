@@ -27,7 +27,7 @@ function showTabs(tabs) {
     icon.css('margin-bottom', 10);
 
     var div = $('<div />', {
-      text: t.title,
+      text: t.title ? t.title : 'blank',
       class: 'text'
     });
 
