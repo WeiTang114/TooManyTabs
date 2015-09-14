@@ -1,6 +1,6 @@
 {
   "name": "Find My Tab",
-  "version": "0.9.2",
+  "version": "0.9.3",
   "description": "Jump to the right tab immediately by clicking the title in the popup, even if you have 100 tabs.",
   "permissions": [
     "tabs"

@@ -10,7 +10,11 @@ function showTabs(tabs) {
   _list.empty();
   for (var i = 0; i < tabs.length; i++) {
     var t = tabs[i];
-    console.log(t.title);
+    var title = t.title;
+    if (!title || !/\S/.test(title)) {
+      title = 'blank';
+    }
+
     var href = $('<a />', {
       href: '#',
       class: 'list-group-item item',
@@ -27,7 +31,7 @@ function showTabs(tabs) {
     icon.css('margin-bottom', 10);
 
     var div = $('<div />', {
-      text: t.title ? t.title : 'blank',
+      text: title,
       class: 'text'
     });
 
