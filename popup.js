@@ -89,6 +89,9 @@ function highlightActiveTab() {
     var item = $($('#tabs').find('.item').get(idx));
     item.addClass('active');
 
+    // disable click function of the item
+    item.off('click');
+
     // disable close for current tab
     item.find('.close-btn')
         .css('pointer-events', 'none')
@@ -125,8 +128,30 @@ function initFilter() {
 }
 
 
+function initArrowKeys() {
+  function keyup() {
+
+  }
+
+  function keydown() {
+
+  }
+
+  switch(e.which) {
+    case 38: // up
+      keyup();
+      break;
+    case 40: // down
+      keydown();
+      break;
+    default: return; // exit this handler for other keys
+  }
+  e.preventDefault(); // prevent the default action (scroll / move car
+}
+
 document.addEventListener('DOMContentLoaded', function () {
   _list = $('#tabs');
   queryTabs();
   initFilter();
+  initArrowKeys();
 });
