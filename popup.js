@@ -86,8 +86,13 @@ function updateLayout() {
 function highlightActiveTab() {
   chrome.tabs.query({currentWindow:true, active: true}, function(tabs) {
     var idx = tabs[0].index;
-    $($('#tabs').find('.item').get(idx))
-        .addClass('active');
+    var item = $($('#tabs').find('.item').get(idx));
+    item.addClass('active');
+
+    // disable close for current tab
+    item.find('.close-btn')
+        .css('pointer-events', 'none')
+        .css('display', 'none');
   });
 }
 
