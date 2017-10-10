@@ -7,8 +7,8 @@ function queryTabs() {
 var _tabs;
 const Item = (title, favIconUrl) => `
   <a href="#" class="list-group-item item" tabindex="-1">
-    <img src="${favIconUrl}" style="width: 15px; height: 15px; float: left; margin-right: 10px; margin-bottom: 10px;">
-    <span class="glyphicon glyphicon-remove-circle pull-right close-btn" style="margin-left: 10px; font-size: 16px;"></span>
+    <img class="favicon" src="${favIconUrl}">
+    <span class="glyphicon glyphicon-remove-circle pull-right close-btn"></span>
     <div class="text">${title}</div>
   </a>
 `;

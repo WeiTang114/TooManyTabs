@@ -18,8 +18,21 @@
    -webkit-box-orient: vertical;
 }
 
+.favicon {
+  width: 15px;
+  height: 15px;
+  float: left;
+  margin-right: 10px;
+  margin-bottom: 10px;
+}
+
 .bootstrap-select .btn:focus {
     outline: none !important;
+}
+
+.close-btn {
+  margin-left: 10px;
+  font-size: 16px;
 }
 
 .close-btn:hover {
