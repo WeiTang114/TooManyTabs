@@ -5,6 +5,14 @@ function queryTabs() {
 }
 
 var _tabs;
+const Item = (title, favIconUrl) => `
+  <a href="#" class="list-group-item item" tabindex="-1">
+    <img src="${favIconUrl}" style="width: 15px; height: 15px; float: left; margin-right: 10px; margin-bottom: 10px;">
+    <span class="glyphicon glyphicon-remove-circle pull-right close-btn" style="margin-left: 10px; font-size: 16px;"></span>
+    <div class="text">${title}</div>
+  </a>
+`;
+
 function showTabs(tabs) {
   _tabs = tabs;
   _list.empty();
@@ -15,36 +23,8 @@ function showTabs(tabs) {
       title = 'blank';
     }
 
-    var href = $('<a />', {
-      href: '#',
-      class: 'list-group-item item',
-      tabindex: -1
-    });
-
-    var icon = $('<img />', {
-      src: t.favIconUrl,
-      width: 15,
-      height: 15
-    });
-    icon.css('float', 'left');
-    icon.css('margin-right', 10);
-    icon.css('margin-bottom', 10);
-
-    var div = $('<div />', {
-      text: title,
-      class: 'text'
-    });
-
-    var badge = $('<span />', {
-      class: 'glyphicon glyphicon-remove-circle pull-right close-btn',
-    });
-    badge.css('margin-left', 10);
-    badge.css('font-size', 16);
-
-    href.append(icon);
-    href.append(badge);
-    href.append(div);
-    _list.append(href);
+    var item = $(Item(title, t.favIconUrl));
+    _list.append(item);
   }
 
   updateLayout();
