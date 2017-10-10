@@ -79,6 +79,21 @@ function highlightActiveTab() {
   });
 }
 
+// make the items draggable to sort the tabs
+// with jqueryui's sortable() function
+function initSortable() {
+  var originalIndex;;
+  _list.sortable({
+    start: (event, ui) => {
+      originalIndex = ui.item.index();
+    },
+    update: (event, ui) => {
+      chrome.tabs.move(_tabs[originalIndex].id, {index: ui.item.index()});
+    }
+  });
+}
+
+
 // This is from Kilian:
 //     http://kilianvalkhof.com/2010/javascript/how-to-build-a-fast-simple-list-filter-with-jquery/
 function initFilter() {
@@ -132,6 +147,7 @@ function initArrowKeys() {
 document.addEventListener('DOMContentLoaded', function () {
   _list = $('#tabs');
   queryTabs();
+  initSortable();
   initFilter();
   initArrowKeys();
 });
