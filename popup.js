@@ -83,16 +83,6 @@ function showTabs(tabs) {
     item = event.currentTarget;
 
     event.metaKey = true;
-    // ind = _selected.indexOf(item);
-    // alreadySelected = (ind >= 0);
-    // if (alreadySelected) {
-    //   console.log("Removing element " + ind + " from selected");
-    //   _selected.splice(ind, 1);
-    // }
-    // else {
-    //   _selected.push(item);
-    // }
-    // updateSelected();
   });
 
   // only with adding this, we can select multiple items by clicking "check"
@@ -110,18 +100,6 @@ function showTabs(tabs) {
     else {
       item.addClass('ui-selected');
     }
-
-    // ind = _selected.indexOf(item);
-    // alreadySelected = (ind >= 0);
-    // if (alreadySelected) {
-    //   console.log("Removing " + ind + " from selected");
-    //   _selected.splice(ind, 1);
-    // }
-    // else {
-    //   _selected.push(item);
-    // }
-    // updateSelected();
-
 
     // stop the event from triggering the '.item' click callback
     event.stopPropagation();
@@ -188,31 +166,6 @@ function initSelectable() {
     e.metaKey = true;
   }).selectable({
     filter: '.item',
-    // selected: (e, ui) => {
-    //   // if (ui.hasClass('ui-selected')) {
-    //   //   ui.item.removeClass('ui-selected');
-    //   // }
-
-    //   ind = _selected.indexOf(ui.selected);
-    //   alreadySelected = (ind >= 0);
-    //   // console.log("SELECTED");
-    //   // console.log(ui);
-    //   // console.log(ui.selected);
-    //   if (alreadySelected) {
-    //     console.log("Removing " + ind + " from selected");
-    //     _selected.splice(ind, 1);
-    //   }
-    //   else {
-    //     elem = ui.selected;
-    //     _selected.push(elem);
-    //   }
-    //   console.log(_selected);
-    // },
-    // stop: (e, ui) => {
-    //   console.log("STOP");
-
-    //   updateSelected();
-    // }
   });
   _list.selectable('disable');
 }
