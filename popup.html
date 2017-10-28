@@ -9,15 +9,25 @@
   </style>
 
   <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/font-awesome.min.css" rel="stylesheet">
   <link href="css/custom.css" rel="stylesheet">
+  <link href="css/jquery-ui.min.css" rel="stylesheet">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+  <script src="js/jquery-ui.js"></script>
   <script src="popup.js"></script>
 </head>
 <body style="width: 400px; padding-left:5px; padding-right:5px" >
   <div id="searchdiv" class="btn-group btn-group-justified">
-    <input id="searchinput" type="search" class="form-control filterinput" placeholder="Search">
+    <input id="searchinput" type="search" style="display:inline-block" class="form-control filterinput" placeholder="Search">
     <span id="searchclear" class="glyphicon glyphicon-remove-circle" ></span>
+
+    <!-- <div class="pull-right" style="display:inline-block">abc</div> -->
+    <div id="selectBox" class="pull-right">
+      <!-- <span id="select" class="glyphicon glyphicon-ok"></span> -->
+      <a class="select-btn" href="#">
+        <span id="select" class="fa fa-check pull-right"></span>
+      </a>
+    </div>
   </div>
   <div>
     <div id="tabs" class="list-group"></div>

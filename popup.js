@@ -1,17 +1,22 @@
 var _list;
+var _tabs;
+var _selectMode = false;
+var _selected = [];
+const Item = (tabid, title, favIconUrl) => `
+  <a data-tabid="${tabid}" href="#" class="list-group-item item" tabindex="-1">
+    <div class="fa fa-check check"></div>
+    <img class="favicon" src="${favIconUrl}">
+    <span class="glyphicon glyphicon-remove-circle pull-right close-btn"></span>
+    <div class="text">${title}</div>
+    <div class=""
+  </a>
+`;
+
 
 function queryTabs() {
   chrome.tabs.query({currentWindow: true}, showTabs);
 }
 
-var _tabs;
-const Item = (title, favIconUrl) => `
-  <a href="#" class="list-group-item item" tabindex="-1">
-    <img class="favicon" src="${favIconUrl}">
-    <span class="glyphicon glyphicon-remove-circle pull-right close-btn"></span>
-    <div class="text">${title}</div>
-  </a>
-`;
 
 function showTabs(tabs) {
   _tabs = tabs;
@@ -23,19 +28,14 @@ function showTabs(tabs) {
       title = 'blank';
     }
 
-    var item = $(Item(title, t.favIconUrl));
+    var item = $(Item(t.id, title, t.favIconUrl));
     _list.append(item);
   }
 
   updateLayout();
   highlightActiveTab();
+  enableItemClick();
 
-  $('.item').click(function() {
-    var idx = $(this).index();
-    console.log(idx);
-    chrome.tabs.update(_tabs[idx].id, {active: true});
-    window.close();
-  });
 
   $('.close-btn').click(function() {
     // stop the event from triggering the '.item' click callback
@@ -50,6 +50,81 @@ function showTabs(tabs) {
       updateLayout();
     });
 
+  });
+
+  $('.select-btn').click(function() {
+    _selectMode = !_selectMode;
+    if (_selectMode) {
+      _list.sortable('disable');
+      _list.selectable('enable');
+      _list.find('.check').css('display', 'block');
+      disableItemClick();
+      _selected = [];
+    }
+    else {
+      _list.sortable('enable');
+      _list.selectable('disable');
+      _list.find('.check').css('display', 'none');
+      enableItemClick();
+
+      // remove color
+      _list.find('.ui-selected').removeClass('ui-selected');
+    }
+  });
+
+
+  // $('.item').fn.bindFirst('mousedown', function() {
+  //   event.metaKey = true;
+  // });
+
+  $('.item').mousedown(function(event) {
+    console.log('item.mousedown');
+    console.log(event);
+    item = event.currentTarget;
+
+    event.metaKey = true;
+    // ind = _selected.indexOf(item);
+    // alreadySelected = (ind >= 0);
+    // if (alreadySelected) {
+    //   console.log("Removing element " + ind + " from selected");
+    //   _selected.splice(ind, 1);
+    // }
+    // else {
+    //   _selected.push(item);
+    // }
+    // updateSelected();
+  });
+
+  // only with adding this, we can select multiple items by clicking "check"
+  // or the selected items are cleared
+  $('.check').mousedown(function() {
+    event.stopPropagation();
+  });
+
+  $('.check').click(function() {
+    var item = $(this).parent();//[0];
+    console.log(item);
+    if (item.hasClass('ui-selected')) {
+      item.removeClass('ui-selected');
+    }
+    else {
+      item.addClass('ui-selected');
+    }
+
+    // ind = _selected.indexOf(item);
+    // alreadySelected = (ind >= 0);
+    // if (alreadySelected) {
+    //   console.log("Removing " + ind + " from selected");
+    //   _selected.splice(ind, 1);
+    // }
+    // else {
+    //   _selected.push(item);
+    // }
+    // updateSelected();
+
+
+    // stop the event from triggering the '.item' click callback
+    event.stopPropagation();
   });
 }
 
@@ -79,6 +154,19 @@ function highlightActiveTab() {
   });
 }
 
+function enableItemClick() {
+  $('.item').click(function() {
+    var idx = $(this).index();
+    console.log(idx);
+    chrome.tabs.update(_tabs[idx].id, {active: true});
+    window.close();
+  });
+}
+
+function disableItemClick() {
+  $('.item').off('click');
+}
+
 // make the items draggable to sort the tabs
 // with jqueryui's sortable() function
 function initSortable() {
@@ -93,6 +181,41 @@ function initSortable() {
   });
 }
 
+function initSelectable() {
+  // insert metaKey = true to implement multiple-selection
+  // https://stackoverflow.com/questions/4396042/implement-multiple-selects-with-jquery-ui-selectable
+  _list.bind('mousedown', (e) => {
+    e.metaKey = true;
+  }).selectable({
+    filter: '.item',
+    // selected: (e, ui) => {
+    //   // if (ui.hasClass('ui-selected')) {
+    //   //   ui.item.removeClass('ui-selected');
+    //   // }
+
+    //   ind = _selected.indexOf(ui.selected);
+    //   alreadySelected = (ind >= 0);
+    //   // console.log("SELECTED");
+    //   // console.log(ui);
+    //   // console.log(ui.selected);
+    //   if (alreadySelected) {
+    //     console.log("Removing " + ind + " from selected");
+    //     _selected.splice(ind, 1);
+    //   }
+    //   else {
+    //     elem = ui.selected;
+    //     _selected.push(elem);
+    //   }
+    //   console.log(_selected);
+    // },
+    // stop: (e, ui) => {
+    //   console.log("STOP");
+
+    //   updateSelected();
+    // }
+  });
+  _list.selectable('disable');
+}
 
 // This is from Kilian:
 //     http://kilianvalkhof.com/2010/javascript/how-to-build-a-fast-simple-list-filter-with-jquery/
@@ -123,6 +246,17 @@ function initFilter() {
 }
 
 
+function updateSelected() {
+  // update selected items according to _selected
+  $(".item").removeClass("ui-selected");
+  _selected.map((item) => {
+    // console.log("stop");
+    // console.log(item);
+    $(item).addClass("ui-selected");
+  });
+}
+
+
 function initArrowKeys() {
   function keyup() {
 
@@ -148,6 +282,7 @@ document.addEventListener('DOMContentLoaded', function () {
   _list = $('#tabs');
   queryTabs();
   initSortable();
+  initSelectable();
   initFilter();
   initArrowKeys();
 });

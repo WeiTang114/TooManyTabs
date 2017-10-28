@@ -1,3 +1,9 @@
+body {
+  width: 400px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
 .list-group-item {
   position: relative;
   display: block;
@@ -45,8 +51,19 @@
 
 #searchinput {
   /*width: 200px;*/
-  max-width: 600px;
+  /*max-width: 600px;*/
+  max-width: 350px;
+  outline: 0 none;
+  display:inline-block;
+  /*vertical-align:top;*/
 }
+textarea:focus, input:focus, input[type]:focus, .uneditable-input:focus {
+    border-color: #dadada;
+    box-shadow: 0 0px 0px rgba(229, 103, 23, 0.075) inset, 0 0 0px rgba(229, 103, 23, 0.6);
+    outline: 0 none;
+}
+
+
 
 #searchclear {
   position: absolute;
@@ -65,3 +82,56 @@
   margin-top: 5px;
   margin-bottom: 10px;
 }
+
+#selectBox {
+  height: 34px;
+  width: 34px;
+  padding-bottom: 4px;
+  padding-top: 6px;
+  margin-right: 5px;
+  border-style: solid;
+  border-width: 0px;
+  border-radius: 5px;
+  display:inline-block;
+}
+
+#select {
+  font-size: 20px;
+}
+
+#tabs .text {
+  /*background: #FFFFFF;*/
+  /*color: black;*/
+}
+
+#tabs .ui-selecting {
+  background: #FECA40;
+}
+
+#tabs .ui-selected {
+  background: #F39814;
+  color: white;
+}
+
+.check {
+  display: none;
+  float: left;
+  margin-right: 10px;
+  padding-top: 1px;
+  padding-left: 1px;
+  font-size: 10px;
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 2px;
+  border-color: #999;
+  color: rgba(112, 112, 112, 0);
+  width: 16px;
+  height: 16px;
+}
+
+.item.ui-selected .check{
+  color: rgba(112, 112, 112, 1);
+}
+
+
+
