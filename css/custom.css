@@ -133,5 +133,8 @@ textarea:focus, input:focus, input[type]:focus, .uneditable-input:focus {
   color: rgba(112, 112, 112, 1);
 }
 
-
+.active.ui-selectee {
+  pointer-events: none;
+  cursor: default;
+}
 

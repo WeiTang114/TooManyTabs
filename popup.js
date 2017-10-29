@@ -33,6 +33,8 @@ function showTabs(tabs) {
   }
 
   updateLayout();
+  initSortable();
+  initSelectable();
   highlightActiveTab();
   enableItemClick();
 
@@ -97,7 +99,7 @@ function showTabs(tabs) {
     if (item.hasClass('ui-selected')) {
       item.removeClass('ui-selected');
     }
-    else {
+    else if (!item.hasClass('unselectable')) {
       item.addClass('ui-selected');
     }
 
@@ -129,6 +131,10 @@ function highlightActiveTab() {
     item.find('.close-btn')
         .css('pointer-events', 'none')
         .css('display', 'none');
+
+    // disable selectable for current tab
+    item.addClass("unselectable");
+    item.find('.check').remove();
   });
 }
 
@@ -163,9 +169,9 @@ function initSelectable() {
   // insert metaKey = true to implement multiple-selection
   // https://stackoverflow.com/questions/4396042/implement-multiple-selects-with-jquery-ui-selectable
   _list.bind('mousedown', (e) => {
-    e.metaKey = true;
+      e.metaKey = true;
   }).selectable({
-    filter: '.item',
+    filter: '.item:not(.unselectable)',
   });
   _list.selectable('disable');
 }
@@ -234,8 +240,6 @@ function initArrowKeys() {
 document.addEventListener('DOMContentLoaded', function () {
   _list = $('#tabs');
   queryTabs();
-  initSortable();
-  initSelectable();
   initFilter();
   initArrowKeys();
 });
