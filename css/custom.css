@@ -49,10 +49,17 @@ body {
   color: #000000;
 }
 
+#searchinputdiv {
+  flex:1;
+  position: relative; /*for searchclear to have absolute position*/
+  margin-right: 8px;
+}
+
 #searchinput {
   /*width: 200px;*/
   /*max-width: 600px;*/
-  max-width: 350px;
+  /*max-width: 320px;*/
+  flex: 1;
   outline: 0 none;
   display:inline-block;
   /*vertical-align:top;*/
@@ -64,10 +71,9 @@ textarea:focus, input:focus, input[type]:focus, .uneditable-input:focus {
 }
 
 
-
 #searchclear {
   position: absolute;
-  right: 5px;
+  right: 10px;
   top: 0;
   bottom: 0;
   height: 14px;
@@ -81,11 +87,12 @@ textarea:focus, input:focus, input[type]:focus, .uneditable-input:focus {
 #searchdiv {
   margin-top: 5px;
   margin-bottom: 10px;
+  display: flex;
 }
 
-#selectBox {
+.top-button-box {
   height: 34px;
-  width: 34px;
+  width: 24px;
   padding-bottom: 4px;
   padding-top: 6px;
   margin-right: 5px;
@@ -95,7 +102,7 @@ textarea:focus, input:focus, input[type]:focus, .uneditable-input:focus {
   display:inline-block;
 }
 
-#select {
+.top-button {
   font-size: 20px;
 }
 
@@ -136,5 +143,17 @@ textarea:focus, input:focus, input[type]:focus, .uneditable-input:focus {
 .active.ui-selectee {
   pointer-events: none;
   cursor: default;
+}
+
+.select-btn {
+  color: #5599ff;
+}
+
+.close-all-btn {
+  color: #FF8888;
+}
+
+#closeAllBtnBox {
+  display: none;
 }
 

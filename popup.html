@@ -18,14 +18,18 @@
 </head>
 <body style="width: 400px; padding-left:5px; padding-right:5px" >
   <div id="searchdiv" class="btn-group btn-group-justified">
-    <input id="searchinput" type="search" style="display:inline-block" class="form-control filterinput" placeholder="Search">
-    <span id="searchclear" class="glyphicon glyphicon-remove-circle" ></span>
-
-    <!-- <div class="pull-right" style="display:inline-block">abc</div> -->
-    <div id="selectBox" class="pull-right">
-      <!-- <span id="select" class="glyphicon glyphicon-ok"></span> -->
+    <div id="searchinputdiv">
+      <input id="searchinput" type="search" style="display:inline-block" class="form-control filterinput" placeholder="Search">
+      <span id="searchclear" class="glyphicon glyphicon-remove-circle" ></span>
+    </div>
+    <div class="top-button-box pull-right">
       <a class="select-btn" href="#">
-        <span id="select" class="fa fa-check pull-right"></span>
+        <span class="top-button fa fa-check pull-right"></span>
+      </a>
+    </div>
+    <div id="closeAllBtnBox" class="top-button-box pull-right">
+      <a class="close-all-btn" href="#">
+        <span class="top-button fa fa-close pull-right"></span>
       </a>
     </div>
   </div>

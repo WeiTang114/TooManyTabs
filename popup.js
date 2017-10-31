@@ -45,13 +45,7 @@ function showTabs(tabs) {
 
     var item = $(this).parent();
     var idx = item.index();
-    chrome.tabs.remove(_tabs[idx].id, function() {
-      item.remove();
-      _tabs.splice(idx, 1);
-
-      updateLayout();
-    });
-
+    closeTab(idx);
   });
 
   $('.select-btn').click(function() {
@@ -60,6 +54,8 @@ function showTabs(tabs) {
       _list.sortable('disable');
       _list.selectable('enable');
       _list.find('.check').css('display', 'block');
+      _list.find('.close-btn').css('display', 'none');
+      $('#closeAllBtnBox').css('display', 'inline-block');
       disableItemClick();
       _selected = [];
     }
@@ -67,11 +63,20 @@ function showTabs(tabs) {
       _list.sortable('enable');
       _list.selectable('disable');
       _list.find('.check').css('display', 'none');
+      _list.find('.close-btn').css('display', 'block');
+      $('#closeAllBtnBox').css('display', 'none');
       enableItemClick();
 
       // remove color
       _list.find('.ui-selected').removeClass('ui-selected');
     }
+  });
+
+  $('.close-all-btn').click(function() {
+    $($('.item.ui-selected').get().reverse()).each(function(idx, elem) {
+      tabIdx = $(elem).index();
+      closeTab(tabIdx);
+    });
   });
 
 
@@ -115,6 +120,15 @@ function updateLayout() {
   _list.css('max-height', Math.min(_list.height(), 550));
   _list.css('margin-bottom', '0px');
   $('html').height(_list.height() + 45);
+}
+
+function closeTab(tabIdx) {
+  chrome.tabs.remove(_tabs[tabIdx].id, function() {
+    $('.item')[tabIdx].remove();
+    _tabs.splice(tabIdx, 1);
+
+    updateLayout();
+  });
 }
 
 
