@@ -112,12 +112,17 @@ textarea:focus, input:focus, input[type]:focus, .uneditable-input:focus {
 }
 
 #tabs .ui-selecting {
-  background: #FECA40;
+  background: #DDDDDD; //#FECA40;
 }
 
 #tabs .ui-selected {
-  background: #F39814;
+  background:   #888888; //#F39814;
   color: white;
+}
+
+#tabs .ui-selected .check{
+  color: #FDFDFD;
+  border-color: #FDFDFD;
 }
 
 .check {

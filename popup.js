@@ -72,11 +72,21 @@ function showTabs(tabs) {
     }
   });
 
+  $('.select-btn').mouseup(function() {
+    // remove focus after clicked
+    $(this).blur();
+  });
+
   $('.close-all-btn').click(function() {
     $($('.item.ui-selected').get().reverse()).each(function(idx, elem) {
       tabIdx = $(elem).index();
       closeTab(tabIdx);
     });
+  });
+
+  $('.close-all-btn').mouseup(function() {
+    // remove focus after clicked
+    $(this).blur();
   });
 
 
