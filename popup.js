@@ -55,7 +55,9 @@ function showTabs(tabs) {
       _list.selectable('enable');
       _list.find('.check').css('display', 'block');
       _list.find('.close-btn').css('display', 'none');
-      $('#closeAllBtnBox').css('display', 'inline-block');
+      $(this).addClass('focused');
+      $(this).trigger('mouseenter');
+      // $('#closeAllBtnBox').css('display', 'inline-block');
       disableItemClick();
       _selected = [];
     }
@@ -66,6 +68,8 @@ function showTabs(tabs) {
       _list.find('.close-btn').css('display', 'block');
       $('#closeAllBtnBox').css('display', 'none');
       enableItemClick();
+      $(this).removeClass('focused');
+      $(this).mouseleave();
 
       // remove color
       _list.find('.ui-selected').removeClass('ui-selected');
@@ -81,6 +85,7 @@ function showTabs(tabs) {
     $($('.item.ui-selected').get().reverse()).each(function(idx, elem) {
       tabIdx = $(elem).index();
       closeTab(tabIdx);
+      $('#closeAllBtnBox').css('display', 'none');
     });
   });
 
@@ -101,6 +106,9 @@ function showTabs(tabs) {
 
     event.metaKey = true;
   });
+  $('.item').click(function() {
+    selectStop();
+  });
 
   // only with adding this, we can select multiple items by clicking "check"
   // or the selected items are cleared
@@ -117,6 +125,8 @@ function showTabs(tabs) {
     else if (!item.hasClass('unselectable')) {
       item.addClass('ui-selected');
     }
+
+    selectStop();
 
     // stop the event from triggering the '.item' click callback
     event.stopPropagation();
@@ -146,7 +156,8 @@ function highlightActiveTab() {
   chrome.tabs.query({currentWindow:true, active: true}, function(tabs) {
     var idx = tabs[0].index;
     var item = $($('#tabs').find('.item').get(idx));
-    item.addClass('active');
+    // item.addClass('active');
+    item.addClass('disabled');
 
     // disable click function of the item
     item.off('click');
@@ -196,6 +207,7 @@ function initSelectable() {
       e.metaKey = true;
   }).selectable({
     filter: '.item:not(.unselectable)',
+    stop: selectStop
   });
   _list.selectable('disable');
 }
@@ -237,6 +249,16 @@ function updateSelected() {
     // console.log(item);
     $(item).addClass("ui-selected");
   });
+}
+
+
+function selectStop() {
+  if ($('.item.ui-selected').length > 0) {
+    $('#closeAllBtnBox').css('display', 'inline-block');
+  }
+  else {
+    $('#closeAllBtnBox').css('display', 'none');
+  }
 }
 
 

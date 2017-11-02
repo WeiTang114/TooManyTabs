@@ -111,12 +111,17 @@ textarea:focus, input:focus, input[type]:focus, .uneditable-input:focus {
   /*color: black;*/
 }
 
+.item {
+  transition: background-color 0.1s linear;
+}
+
 #tabs .ui-selecting {
   background: #DDDDDD; //#FECA40;
 }
 
 #tabs .ui-selected {
-  background:   #888888; //#F39814;
+  /*background:   #888888; //#F39814;*/
+  background:     #a2a2a2;
   color: white;
 }
 
@@ -162,3 +167,20 @@ textarea:focus, input:focus, input[type]:focus, .uneditable-input:focus {
   display: none;
 }
 
+.select-btn.focused {
+  color: #0041a3;
+}
+
+#searchinput {
+  border-radius: 2px;
+}
+
+#tabs .list-group-item:first-child{
+  border-top-right-radius: 2px !important;
+  border-top-left-radius: 2px !important;
+}
+
+#tabs .list-group-item:last-child{
+  border-bottom-right-radius: 2px !important;
+  border-bottom-left-radius: 2px !important;
+}
