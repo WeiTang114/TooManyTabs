@@ -1,9 +1,9 @@
 # TooManyTabs (Find My Tab)
-<img src="https://imgur.com/MzIkR6L.png" width="48">
+<img src="https://imgur.com/FvsJ49f.png" width="300">
 
 Find My Tab 是一個 Chrome 分頁爆炸時的方便小插件。
 
-下載：[Chrome Web Store](https://chrome.google.com/webstore/detail/find-my-tab/ppdehbeleclmdfmmlliemhijdpcbjmge?authuser=0)
+下載 Install：[Chrome Web Store](https://chrome.google.com/webstore/detail/find-my-tab/ppdehbeleclmdfmmlliemhijdpcbjmge?authuser=0)
 
 # 版本
 - 0.9.2 2015.9.6 初次上架版本
@@ -19,3 +19,8 @@ Find My Tab 是一個 Chrome 分頁爆炸時的方便小插件。
 
 - 移動功能
 ![截圖移動](https://i.imgur.com/rGB7Qc9.png)
+
+
+# 開發者
+
+[weitang114](https://weitang114.github.io/about)
