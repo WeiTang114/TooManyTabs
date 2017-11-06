@@ -134,11 +134,18 @@ function showTabs(tabs) {
 }
 
 function updateLayout() {
+  // sum the items to find proper height value for the list
+  // the "invisible" (filtered by searching) items don't count
+  var visibleItems = _list.find('.item[display!="none"]').toArray();
+  var h = visibleItems.map((item)=> {
+    return $(item).outerHeight();
+  }).reduce((a,b)=>{
+    return a + b;
+  }, 0);
 
-  console.log('new height:' + _list.height());
   _list.css('overflowY', 'auto');
-  _list.css('max-height', Math.min(_list.height(), 550));
-  _list.css('margin-bottom', '0px');
+  _list.css('max-height', Math.min(h, 550));
+  _list.css('margin-bottom', '4px');
   $('html').height(_list.height() + 45);
 }
 
@@ -226,11 +233,12 @@ function initFilter() {
     if (filter) {
       $('#searchclear').show();
       _list.find("div:not(:Contains(" + filter + "))").parent().slideUp(duration);
-      _list.find("div:Contains(" + filter + ")").parent().slideDown(duration);
+      _list.find("div:Contains(" + filter + ")").parent().slideDown(duration, updateLayout);
     } else {
       $('#searchclear').hide();
-      _list.find(".item").slideDown(duration);
+      _list.find(".item").slideDown(duration, updateLayout);
     }
+
   }).keyup(function() {
     $(this).change();
   });
