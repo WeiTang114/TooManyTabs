@@ -221,14 +221,15 @@ function initFilter() {
 
   $('#searchinput').change(function() {
     var filter = $(this).val();
+    var duration = 0;
     console.log(filter);
     if (filter) {
       $('#searchclear').show();
-      _list.find("div:not(:Contains(" + filter + "))").parent().slideUp();
-      _list.find("div:Contains(" + filter + ")").parent().slideDown();
+      _list.find("div:not(:Contains(" + filter + "))").parent().slideUp(duration);
+      _list.find("div:Contains(" + filter + ")").parent().slideDown(duration);
     } else {
       $('#searchclear').hide();
-      _list.find(".item").slideDown();
+      _list.find(".item").slideDown(duration);
     }
   }).keyup(function() {
     $(this).change();
