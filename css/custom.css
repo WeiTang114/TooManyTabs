@@ -24,6 +24,10 @@ body {
    -webkit-box-orient: vertical;
 }
 
+.url {
+  display: none;
+}
+
 .favicon {
   width: 15px;
   height: 15px;

@@ -2,13 +2,13 @@ var _list;
 var _tabs;
 var _selectMode = false;
 var _selected = [];
-const Item = (tabid, title, favIconUrl) => `
+const Item = (tabid, title, favIconUrl, url) => `
   <a data-tabid="${tabid}" href="#" class="list-group-item item" tabindex="-1">
     <div class="fa fa-check check"></div>
     <img class="favicon" src="${favIconUrl}">
     <span class="glyphicon glyphicon-remove-circle pull-right close-btn"></span>
     <div class="text">${title}</div>
-    <div class=""
+    <div class="url">${url}</div>
   </a>
 `;
 
@@ -28,7 +28,7 @@ function showTabs(tabs) {
       title = 'blank';
     }
 
-    var item = $(Item(t.id, title, t.favIconUrl));
+    var item = $(Item(t.id, title, t.favIconUrl, t.url));
     _list.append(item);
   }
 
