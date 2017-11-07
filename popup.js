@@ -238,7 +238,6 @@ function initFilter() {
       $('#searchclear').hide();
       // use promise to call updateLayout() after all slides are done
       $.when(_list.find(".item").slideDown(duration)).then(updateLayout);
-
     }
 
   }).keyup(function() {
@@ -282,16 +281,16 @@ function initArrowKeys() {
 
   }
 
-  switch(e.which) {
-    case 38: // up
-      keyup();
-      break;
-    case 40: // down
-      keydown();
-      break;
-    default: return; // exit this handler for other keys
-  }
-  e.preventDefault(); // prevent the default action (scroll / move car
+  // switch(e.which) {
+  //   case 38: // up
+  //     keyup();
+  //     break;
+  //   case 40: // down
+  //     keydown();
+  //     break;
+  //   default: return; // exit this handler for other keys
+  // }
+  // e.preventDefault(); // prevent the default action (scroll / move car
 }
 
 document.addEventListener('DOMContentLoaded', function () {
