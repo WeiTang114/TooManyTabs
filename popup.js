@@ -229,14 +229,16 @@ function initFilter() {
   $('#searchinput').change(function() {
     var filter = $(this).val();
     var duration = 0;
-    console.log(filter);
     if (filter) {
       $('#searchclear').show();
       _list.find("div:not(:Contains(" + filter + "))").parent().slideUp(duration);
-      _list.find("div:Contains(" + filter + ")").parent().slideDown(duration, updateLayout);
+      // use promise to call updateLayout() after all slides are done
+      $.when(_list.find("div:Contains(" + filter + ")").parent().slideDown(duration)).then(updateLayout);
     } else {
       $('#searchclear').hide();
-      _list.find(".item").slideDown(duration, updateLayout);
+      // use promise to call updateLayout() after all slides are done
+      $.when(_list.find(".item").slideDown(duration)).then(updateLayout);
+
     }
 
   }).keyup(function() {
