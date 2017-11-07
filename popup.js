@@ -145,7 +145,7 @@ function updateLayout() {
 
   _list.css('overflowY', 'auto');
   _list.css('max-height', Math.min(h, 550));
-  _list.css('margin-bottom', '4px');
+  _list.css('margin-bottom', '3px');
   $('html').height(_list.height() + 45);
 }
 
