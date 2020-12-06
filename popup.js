@@ -272,6 +272,11 @@ function selectStop() {
 }
 
 
+function initFocus() {
+  $('#searchinput').focus();
+}
+
+
 function initArrowKeys() {
   function keyup() {
 
@@ -297,5 +302,6 @@ document.addEventListener('DOMContentLoaded', function () {
   _list = $('#tabs');
   queryTabs();
   initFilter();
+  initFocus();
   initArrowKeys();
 });
