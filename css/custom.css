@@ -119,8 +119,13 @@ textarea:focus, input:focus, input[type]:focus, .uneditable-input:focus {
   transition: background-color 0.1s linear;
 }
 
+.focused {
+  background-color: #E2E2E2;
+}
+
 #tabs .ui-selecting {
-  background: #DDDDDD; //#FECA40;
+  /*#FECA40;*/
+  background: #DDDDDD;
 }
 
 #tabs .ui-selected {

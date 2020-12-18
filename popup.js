@@ -2,6 +2,22 @@ var _list;
 var _tabs;
 var _selectMode = false;
 var _selected = [];
+var _filter = '';
+var _focus = {
+  value: 0,
+  callback(old, neww) {
+    console.log(`The variable has changed to ${this.at}`);
+  },
+  get at() {
+    return this.value;
+  },
+  set at(value) {
+    var old = this.value;
+    this.value = value;
+    this.callback(old, value);
+  }
+}
+
 const Item = (tabid, title, favIconUrl, url) => `
   <a data-tabid="${tabid}" href="#" class="list-group-item item" tabindex="-1">
     <div class="fa fa-check check"></div>
@@ -100,10 +116,7 @@ function showTabs(tabs) {
   // });
 
   $('.item').mousedown(function(event) {
-    console.log('item.mousedown');
-    console.log(event);
     item = event.currentTarget;
-
     event.metaKey = true;
   });
   $('.item').click(function() {
@@ -118,7 +131,7 @@ function showTabs(tabs) {
 
   $('.check').click(function() {
     var item = $(this).parent();//[0];
-    console.log(item);
+
     if (item.hasClass('ui-selected')) {
       item.removeClass('ui-selected');
     }
@@ -184,13 +197,17 @@ function enableItemClick() {
   $('.item').click(function() {
     var idx = $(this).index();
     console.log(idx);
-    chrome.tabs.update(_tabs[idx].id, {active: true});
-    window.close();
+    jumpToTab(idx);
   });
 }
 
 function disableItemClick() {
   $('.item').off('click');
+}
+
+function jumpToTab(idx) {
+  chrome.tabs.update(_tabs[idx].id, {active: true});
+  window.close();
 }
 
 // make the items draggable to sort the tabs
@@ -227,19 +244,24 @@ function initFilter() {
   };
 
   $('#searchinput').change(function() {
-    var filter = $(this).val();
+    var newFilter = $(this).val();
+    if (newFilter == _filter) {
+      // no change
+      return;
+    }
+    _filter = newFilter;
     var duration = 0;
-    if (filter) {
+    if (_filter) {
       $('#searchclear').show();
-      _list.find("div:not(:Contains(" + filter + "))").parent().slideUp(duration);
+      _list.find("div:not(:Contains(" + _filter + "))").parent().slideUp(duration);
       // use promise to call updateLayout() after all slides are done
-      $.when(_list.find("div:Contains(" + filter + ")").parent().slideDown(duration)).then(updateLayout);
+      $.when(_list.find("div:Contains(" + _filter + ")").parent().slideDown(duration)).then(updateLayout);
     } else {
       $('#searchclear').hide();
       // use promise to call updateLayout() after all slides are done
       $.when(_list.find(".item").slideDown(duration)).then(updateLayout);
     }
-
+    setFocus(0);
   }).keyup(function() {
     $(this).change();
   });
@@ -255,8 +277,6 @@ function updateSelected() {
   // update selected items according to _selected
   $(".item").removeClass("ui-selected");
   _selected.map((item) => {
-    // console.log("stop");
-    // console.log(item);
     $(item).addClass("ui-selected");
   });
 }
@@ -273,29 +293,81 @@ function selectStop() {
 
 
 function initFocus() {
-  $('#searchinput').focus();
+  _focus.callback = (old, neww) => {
+    // clear old focus
+    if (old > 0) {
+      _list.children().eq(old-1).removeClass('focused');
+    }
+
+    // set new focus
+    if (neww == 0) {
+      $('#searchinput').focus();
+    } else if (neww > 0) {
+      var item = _list.children().eq(neww-1);
+      item.addClass('focused');
+      if (!isItemInViewpost(item)) {
+        // item[0] to get raw js element
+        item[0].scrollIntoView(neww < old);
+      }
+    }
+  }
+  setFocus(0);
 }
 
+function setFocus(i) {
+  if (i < 0 || (_tabs && i > _tabs.length)) {
+    return;
+  }
+  _focus.at = i;
+}
+
+function setFocusNext(currentInd) {
+  for (var i = currentInd + 1; i <= _tabs.length; i++) {
+    if (_list.children().eq(i-1).is(':visible')) {
+      setFocus(i);
+      return;
+    }
+  }
+}
+
+function setFocusPrev(currentInd) {
+  for (var i = currentInd - 1; i >= 0; i--) {
+    if (i == 0 || _list.children().eq(i-1).is(':visible')) {
+      setFocus(i);
+      return;
+    }
+  }
+}
+
+function isItemInViewpost(item) {
+  var itemTop = item.offset().top;
+  var itemBottom = item.offset().top + item.outerHeight();
+  var listBottom = _list.offset().top + _list.innerHeight();
+  var listTop = _list.offset().top;
+  return itemBottom <= listBottom && itemTop >= listTop;
+}
 
 function initArrowKeys() {
-  function keyup() {
 
-  }
-
-  function keydown() {
-
-  }
-
-  // switch(e.which) {
-  //   case 38: // up
-  //     keyup();
-  //     break;
-  //   case 40: // down
-  //     keydown();
-  //     break;
-  //   default: return; // exit this handler for other keys
-  // }
-  // e.preventDefault(); // prevent the default action (scroll / move car
+  document.addEventListener('keydown', (e) => {
+    if (_selectMode) {
+      return;
+    }
+    switch(e.key) {
+      case 'ArrowUp': // up
+        setFocusPrev(_focus.at);
+        break;
+      case 'ArrowDown': // down
+        setFocusNext(_focus.at);
+        break;
+      case 'Enter':
+        if (_focus.at > 0) {
+          jumpToTab(_focus.at-1);
+        }
+      default: return; // exit this handler for other keys
+    }
+    e.preventDefault(); // prevent the default action (scroll / move car
+  });
 }
 
 document.addEventListener('DOMContentLoaded', function () {
