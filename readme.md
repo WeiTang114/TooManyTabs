@@ -1,7 +1,7 @@
 # TooManyTabs (Find My Tab)
 <img src="https://imgur.com/FvsJ49f.png" width="300">
 
-Find My Tab 是一個 Chrome 分頁爆炸時的方便小插件。
+Find My Tab 是一個 Chrome 分頁爆炸時的方便小插件。啟動快速鍵：Ctrl(Cmd)-Shift-Y。
 
 下載 Install：[Chrome Web Store](https://chrome.google.com/webstore/detail/find-my-tab/ppdehbeleclmdfmmlliemhijdpcbjmge?authuser=0)
 
@@ -14,6 +14,7 @@ Find My Tab 是一個 Chrome 分頁爆炸時的方便小插件。
 - 1.0.2 2017.11.7 加速搜尋。
 - 1.0.3 2017.11.11 修正字體過小問題。
 - 1.0.4 2018.7.31 大幅加快啟動速度。
+- 1.1.0 2020.12.18 開啟即可輸入。支援鍵盤上下鍵及 Enter 選取。
 
 # 圖
 - 截圖
