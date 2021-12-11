@@ -163,8 +163,8 @@ function updateLayout() {
 }
 
 function closeTab(tabIdx) {
+  $('.item')[tabIdx].remove();
   chrome.tabs.remove(_tabs[tabIdx].id, function() {
-    $('.item')[tabIdx].remove();
     _tabs.splice(tabIdx, 1);
 
     updateLayout();
