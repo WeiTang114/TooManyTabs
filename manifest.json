@@ -1,6 +1,6 @@
 {
   "name": "Find My Tab",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Jump to the right tab immediately, even when you have 100 tabs open.",
   "permissions": [
     "tabs"
