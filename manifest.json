@@ -20,5 +20,8 @@
         "mac": "Command+Shift+Y"
       }
     }
+  },
+  "background": {
+    "page": "bg.html"
   }
 }
