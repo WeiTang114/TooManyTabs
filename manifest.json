@@ -1,19 +1,16 @@
 {
   "name": "Find My Tab",
-  "version": "1.1.1",
+  "version": "1.2.0",
   "description": "Jump to the right tab immediately, even when you have 100 tabs open.",
   "permissions": [
     "tabs"
   ],
-  "browser_action": {
-      "default_title": "Find My Tab",
-      "default_icon": "icon.png",
-      "default_popup": "popup.html"
+  "manifest_version": 3,
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'self'"
   },
-  "manifest_version": 2,
-  "content_security_policy": "script-src 'self' https://ajax.googleapis.com https://cdnjs.cloudflare.com; object-src 'self'",
   "commands": {
-    "_execute_browser_action": {
+    "_execute_action": {
       "suggested_key": {
         "default": "Ctrl+Shift+Y",
         "windows": "Ctrl+Shift+Y",
@@ -21,7 +18,9 @@
       }
     }
   },
-  "background": {
-    "page": "bg.html"
+  "action": {
+    "default_title": "Find My Tab",
+    "default_icon": "icon.png",
+    "default_popup": "popup.html"
   }
 }
